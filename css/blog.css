@@ -351,6 +351,7 @@ img { max-width: 100%; height: auto; }
   flex-direction: column;
   backdrop-filter: blur(10px);
   position: relative;
+  cursor: pointer;  /* whole card is clickable */
 }
 
 .article-card::before {
@@ -360,6 +361,8 @@ img { max-width: 100%; height: auto; }
   background: linear-gradient(135deg,rgba(99,102,241,0.04),transparent);
   opacity: 0;
   transition: opacity var(--tr);
+  pointer-events: none;  /* ← fix: never block clicks */
+  z-index: 0;
 }
 
 .article-card:hover {
@@ -484,7 +487,11 @@ img { max-width: 100%; height: auto; }
   font-weight: 600;
   color: var(--primary2);
   transition: gap var(--tr);
+  position: relative;  /* stay above ::before overlay */
+  z-index: 1;
 }
+
+.card-body { position: relative; z-index: 1; /* stay above ::before overlay */ }
 
 .card-link:hover { gap: 0.6rem; color: var(--accent); }
 
