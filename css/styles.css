@@ -653,6 +653,7 @@ section {
   gap: 1rem;
   position: relative;
   overflow: hidden;
+  user-select: none;
 }
 
 .upload-zone::before {

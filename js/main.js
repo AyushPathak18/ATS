@@ -252,7 +252,11 @@ function initUploadZone() {
   const fileInput = document.getElementById('file-input');
   const browseBtn = document.getElementById('browse-btn');
 
-  browseBtn.addEventListener('click', () => fileInput.click());
+  // Browse button — stop propagation so it doesn't double-fire the zone onclick
+  browseBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    fileInput.click();
+  });
 
   fileInput.addEventListener('change', e => {
     if (e.target.files[0]) handleFile(e.target.files[0]);
@@ -260,13 +264,18 @@ function initUploadZone() {
 
   zone.addEventListener('dragover', e => {
     e.preventDefault();
+    e.stopPropagation();
     zone.classList.add('drag-over');
   });
 
-  zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+  zone.addEventListener('dragleave', (e) => {
+    e.stopPropagation();
+    zone.classList.remove('drag-over');
+  });
 
   zone.addEventListener('drop', e => {
     e.preventDefault();
+    e.stopPropagation();
     zone.classList.remove('drag-over');
     const file = e.dataTransfer.files[0];
     if (file) handleFile(file);
@@ -339,9 +348,12 @@ async function handleFile(file) {
 
   } catch (err) {
     clearInterval(stepInterval);
+    console.error('ATS Analysis Error:', err);
     document.getElementById('upload-zone').style.display     = 'flex';
     document.getElementById('analyzing-state').style.display = 'none';
-    showToast('❌ ' + (err.message || err), 'error');
+    document.getElementById('file-input').value = '';
+    const msg = (typeof err === 'string') ? err : (err.message || 'Unknown error occurred');
+    showToast('❌ ' + msg, 'error');
   }
 }
 
@@ -384,6 +396,7 @@ function displayResults(result, fileName) {
 
   showToast('✅ Analysis complete!', 'success');
 }
+window.displayResults = displayResults;
 
 function animateScoreRing(score, grade, gradeColor) {
   const ring    = document.getElementById('score-ring-fill');
