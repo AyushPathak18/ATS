@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ATS Checker Pro — Resume Score & Analysis</title>
+  <meta name="description" content="Upload your resume and get an instant ATS compatibility score with detailed feedback, mistake analysis, and actionable improvement tips." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+  <!-- 3D Canvas Background -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Cursor Glow -->
+  <div id="cursor-glow"></div>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <div class="nav-logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">ATS<span class="logo-accent">Pro</span></span>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#upload-section">Check Resume</a></li>
+        <li><a href="#jd-section">JD Match</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#tips-section">Tips</a></li>
+      </ul>
+      <a href="#upload-section" class="nav-cta">Analyze Now</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        AI-Powered Resume Analysis
+      </div>
+      <h1 class="hero-title">
+        Beat the <span class="gradient-text">ATS Filter</span><br />
+        Land Your Dream Job
+      </h1>
+      <p class="hero-subtitle">
+        Upload your resume and get an instant ATS compatibility score, detailed  
+        mistake analysis, and actionable fixes — completely free.
+      </p>
+      <div class="hero-actions">
+        <a href="#upload-section" class="btn-primary">
+          <span>Analyze My Resume</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="btn-ghost" onclick="showSampleResult()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          See Sample
+        </button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">98%</span>
+          <span class="stat-label">Accuracy</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">50K+</span>
+          <span class="stat-label">Resumes Checked</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num">Free</span>
+          <span class="stat-label">Always</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3D Floating Card -->
+    <div class="hero-3d-card" id="hero-card">
+      <div class="card-inner">
+        <div class="card-face card-front">
+          <div class="score-preview-ring">
+            <svg viewBox="0 0 120 120" class="ring-svg">
+              <circle cx="60" cy="60" r="50" class="ring-bg" />
+              <circle cx="60" cy="60" r="50" class="ring-fill ring-animated" id="hero-ring" />
+            </svg>
+            <div class="ring-score-text">
+              <span class="ring-num" id="hero-score-num">0</span>
+              <span class="ring-label">ATS Score</span>
+            </div>
+          </div>
+          <div class="card-chips">
+            <span class="chip chip-green">✓ Keywords Found</span>
+            <span class="chip chip-red">✗ Missing Sections</span>
+            <span class="chip chip-yellow">⚠ Format Issues</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-glow"></div>
+      <div class="floating-orb orb-1"></div>
+      <div class="floating-orb orb-2"></div>
+      <div class="floating-orb orb-3"></div>
+    </div>
+
+    <div class="scroll-indicator">
+      <div class="scroll-dot"></div>
+      <span>Scroll to check your resume</span>
+    </div>
+  </section>
+
+  <!-- ═══════════════ HOW IT WORKS ═══════════════ -->
+  <section id="how-it-works">
+    <div class="section-header">
+      <span class="section-tag">Simple Process</span>
+      <h2>How It <span class="gradient-text">Works</span></h2>
+      <p>Three simple steps to a better resume</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card" data-step="1">
+        <div class="step-icon-wrap">
+          <div class="step-icon">📄</div>
+          <div class="step-num">01</div>
+        </div>
+        <h3>Upload Resume</h3>
+        <p>Drag & drop your PDF or DOCX resume file. We parse it instantly in your browser — your data never leaves your device.</p>
+      </div>
+      <div class="step-connector">
+        <div class="connector-line"></div>
+        <div class="connector-arrow">→</div>
+      </div>
+      <div class="step-card" data-step="2">
+        <div class="step-icon-wrap">
+          <div class="step-icon">🤖</div>
+          <div class="step-num">02</div>
+        </div>
+        <h3>AI Analysis</h3>
+        <p>Our ATS engine scans for keywords, formatting, structure, action verbs, quantified achievements, and 20+ other factors.</p>
+      </div>
+      <div class="step-connector">
+        <div class="connector-line"></div>
+        <div class="connector-arrow">→</div>
+      </div>
+      <div class="step-card" data-step="3">
+        <div class="step-icon-wrap">
+          <div class="step-icon">🎯</div>
+          <div class="step-num">03</div>
+        </div>
+        <h3>Get Your Score</h3>
+        <p>Receive a detailed ATS score with a breakdown of every issue, severity level, and step-by-step fix recommendations.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ UPLOAD SECTION ═══════════════ -->
+  <section id="upload-section">
+    <div class="section-header">
+      <span class="section-tag">Free Analysis</span>
+      <h2>Upload Your <span class="gradient-text">Resume</span></h2>
+      <p>PDF or DOCX — analyzed instantly in your browser</p>
+    </div>
+
+    <div class="upload-container" id="upload-container">
+      <div class="upload-zone" id="upload-zone">
+        <input type="file" id="file-input" accept=".pdf,.doc,.docx" hidden />
+        <div class="upload-icon-3d">
+          <div class="upload-cube">
+            <div class="cube-face cube-top">📄</div>
+            <div class="cube-face cube-front"></div>
+            <div class="cube-face cube-right"></div>
+          </div>
+        </div>
+        <h3 class="upload-title">Drop Your Resume Here</h3>
+        <p class="upload-sub">PDF, DOC, DOCX — Max 10MB</p>
+        <button class="btn-upload" id="browse-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          Browse Files
+        </button>
+        <div class="upload-features">
+          <span>🔒 Private</span>
+          <span>⚡ Instant</span>
+          <span>🆓 Free</span>
+        </div>
+      </div>
+
+      <!-- Loading State -->
+      <div class="analyzing-state" id="analyzing-state" style="display:none;">
+        <div class="analyzing-animation">
+          <div class="scan-ring r1"></div>
+          <div class="scan-ring r2"></div>
+          <div class="scan-ring r3"></div>
+          <div class="scan-icon">🔍</div>
+        </div>
+        <h3>Analyzing Your Resume...</h3>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar" id="progress-bar"></div>
+        </div>
+        <p class="analyzing-step" id="analyzing-step">Extracting text...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ JD MATCHER SECTION ═══════════════ -->
+  <section id="jd-section">
+    <div class="section-header">
+      <span class="section-tag">Smart Matching</span>
+      <h2>Job Description <span class="gradient-text">Analyzer</span></h2>
+      <p>Paste a job description and we'll match it against your resume keyword-by-keyword</p>
+    </div>
+
+    <div class="jd-main-layout">
+      <!-- Left: Inputs -->
+      <div class="jd-inputs-col">
+        <!-- Step 1: Resume Upload (compact) -->
+        <div class="jd-step-card" id="jd-step-resume">
+          <div class="jd-step-header">
+            <span class="jd-step-num">01</span>
+            <div>
+              <h4>Upload Your Resume</h4>
+              <p>PDF, DOCX or TXT file</p>
+            </div>
+            <span class="jd-step-status" id="jd-resume-status">Pending</span>
+          </div>
+          <div class="jd-upload-mini" id="jd-upload-mini">
+            <input type="file" id="jd-file-input" accept=".pdf,.doc,.docx,.txt" hidden />
+            <div class="jd-drop-zone" id="jd-drop-zone">
+              <span class="jd-drop-icon">📄</span>
+              <div>
+                <p class="jd-drop-title">Drop resume here or <button id="jd-browse-btn" class="jd-link-btn">browse</button></p>
+                <p class="jd-drop-sub">Max 10MB</p>
+              </div>
+            </div>
+            <div class="jd-file-loaded" id="jd-file-loaded" style="display:none;">
+              <span class="jd-file-icon">✅</span>
+              <span id="jd-file-name">resume.pdf</span>
+              <button id="jd-clear-file" class="jd-clear-btn">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Job Description -->
+        <div class="jd-step-card" id="jd-step-jd">
+          <div class="jd-step-header">
+            <span class="jd-step-num">02</span>
+            <div>
+              <h4>Paste Job Description</h4>
+              <p>Copy the full job posting text</p>
+            </div>
+            <span class="jd-step-status" id="jd-jd-status">Pending</span>
+          </div>
+          <textarea
+            id="jd-textarea"
+            class="jd-textarea"
+            placeholder="Paste the full job description here...
+
+Example:
+We are looking for a Senior Software Engineer with 5+ years of experience in React, Node.js, and AWS. 
+The ideal candidate should have strong problem-solving skills, experience with agile methodologies, and excellent communication skills..."
+            rows="10"
+          ></textarea>
+          <div class="jd-textarea-meta">
+            <span id="jd-word-count">0 words</span>
+            <button class="jd-paste-btn" id="jd-sample-jd-btn">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              Try Sample JD
+            </button>
+          </div>
+        </div>
+
+        <!-- Analyze Button -->
+        <button class="jd-analyze-btn" id="jd-analyze-btn">
+          <div class="jd-btn-content">
+            <span class="jd-btn-icon">🚀</span>
+            <div>
+              <span class="jd-btn-title">Analyze Resume</span>
+              <span class="jd-btn-sub">Match your resume against the JD</span>
+            </div>
+          </div>
+          <div class="jd-btn-arrow">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- Right: Live Preview / Results -->
+      <div class="jd-results-col" id="jd-results-col">
+        <!-- Empty State -->
+        <div class="jd-empty-state" id="jd-empty-state">
+          <div class="jd-empty-orb"></div>
+          <div class="jd-empty-icon">🎯</div>
+          <h4>Ready to Match</h4>
+          <p>Upload your resume and paste a job description,<br/>then click <strong>Analyze Resume</strong></p>
+          <div class="jd-empty-hints">
+            <div class="jd-hint"><span>🔍</span> Keyword extraction</div>
+            <div class="jd-hint"><span>📊</span> Match percentage</div>
+            <div class="jd-hint"><span>💡</span> Missing keywords</div>
+            <div class="jd-hint"><span>✅</span> Found keywords</div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div class="jd-loading-state" id="jd-loading-state" style="display:none;">
+          <div class="jd-loader-rings">
+            <div class="jd-lr r1"></div>
+            <div class="jd-lr r2"></div>
+            <div class="jd-lr r3"></div>
+            <span class="jd-loader-emoji">🧠</span>
+          </div>
+          <p id="jd-loading-text">Extracting keywords...</p>
+        </div>
+
+        <!-- Match Results -->
+        <div class="jd-match-results" id="jd-match-results" style="display:none;">
+          <!-- Match Score Ring -->
+          <div class="jd-score-header">
+            <div class="jd-match-ring-wrap">
+              <svg viewBox="0 0 140 140" class="jd-ring-svg">
+                <circle cx="70" cy="70" r="56" class="jd-ring-bg" />
+                <circle cx="70" cy="70" r="56" class="jd-ring-fill" id="jd-ring-fill" />
+              </svg>
+              <div class="jd-ring-center">
+                <span class="jd-match-pct" id="jd-match-pct">0%</span>
+                <span class="jd-match-label">Match</span>
+              </div>
+            </div>
+            <div class="jd-score-meta">
+              <h3 id="jd-match-grade">--</h3>
+              <p id="jd-match-desc">--</p>
+              <div class="jd-meta-pills" id="jd-meta-pills"></div>
+            </div>
+          </div>
+
+          <!-- Keyword Tabs -->
+          <div class="jd-kw-tabs">
+            <button class="jd-tab active" id="tab-missing" onclick="switchJDTab('missing')">❌ Missing Keywords <span id="missing-count" class="jd-tab-count">0</span></button>
+            <button class="jd-tab" id="tab-found" onclick="switchJDTab('found')">✅ Found Keywords <span id="found-count" class="jd-tab-count">0</span></button>
+            <button class="jd-tab" id="tab-all" onclick="switchJDTab('all')">📋 All Keywords <span id="all-count" class="jd-tab-count">0</span></button>
+          </div>
+
+          <!-- Keyword Cloud -->
+          <div class="jd-keyword-cloud" id="jd-keyword-cloud"></div>
+
+          <!-- Action Row -->
+          <div class="jd-action-row">
+            <button class="jd-full-analysis-btn" id="jd-full-analysis-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              Run Full ATS Analysis
+            </button>
+            <button class="jd-reset-btn" id="jd-reset-btn">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+              Reset
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ RESULTS SECTION ═══════════════ -->
+  <section id="results-section" style="display:none;">
+    <div class="results-header">
+      <button class="back-btn" id="back-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Analyze Another
+      </button>
+      <h2>Your ATS <span class="gradient-text">Results</span></h2>
+      <p id="file-name-display">resume.pdf</p>
+    </div>
+
+    <!-- Score Overview -->
+    <div class="score-overview">
+      <div class="score-card-3d" id="score-card-3d">
+        <div class="score-ring-wrap">
+          <svg viewBox="0 0 200 200" class="score-ring-svg" id="score-ring-svg">
+            <defs>
+              <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6366f1"/>
+                <stop offset="100%" style="stop-color:#a855f7"/>
+              </linearGradient>
+            </defs>
+            <circle cx="100" cy="100" r="85" class="score-ring-bg" />
+            <circle cx="100" cy="100" r="85" class="score-ring-fill" id="score-ring-fill" />
+          </svg>
+          <div class="score-center">
+            <div class="score-number" id="score-number">0</div>
+            <div class="score-label">ATS Score</div>
+            <div class="score-grade" id="score-grade">--</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="score-breakdown">
+        <h3>Score Breakdown</h3>
+        <div class="breakdown-bars" id="breakdown-bars">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Issue Summary Badges -->
+    <div class="issue-badges" id="issue-badges">
+      <!-- Populated by JS -->
+    </div>
+
+    <!-- Detailed Mistakes -->
+    <div class="mistakes-section">
+      <h3 class="mistakes-title">
+        <span class="icon-wrap">⚠️</span>
+        Issues Found
+        <span class="issues-count" id="issues-count">0</span>
+      </h3>
+      <div class="mistakes-list" id="mistakes-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Strengths -->
+    <div class="strengths-section">
+      <h3 class="strengths-title">
+        <span class="icon-wrap">✅</span>
+        Strengths Detected
+      </h3>
+      <div class="strengths-list" id="strengths-list">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Action Plan -->
+    <div class="action-plan-section">
+      <h3 class="action-plan-title">🎯 Your Improvement Action Plan</h3>
+      <div class="action-plan-grid" id="action-plan-grid">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- JD Match Banner (shown if JD analysis was done) -->
+    <div class="jd-result-banner" id="jd-result-banner" style="display:none;">
+      <div class="jd-banner-left">
+        <span class="jd-banner-icon">🎯</span>
+        <div>
+          <h4>Job Description Match Score</h4>
+          <p id="jd-banner-desc">Matched against the job description you provided</p>
+        </div>
+      </div>
+      <div class="jd-banner-right">
+        <span class="jd-banner-pct" id="jd-banner-pct">--</span>
+        <button class="jd-banner-btn" onclick="document.getElementById('jd-section').scrollIntoView({behavior:'smooth'})">
+          View Full Match Report
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ TIPS SECTION ═══════════════ -->
+  <section id="tips-section">
+    <div class="section-header">
+      <span class="section-tag">Expert Advice</span>
+      <h2>ATS <span class="gradient-text">Best Practices</span></h2>
+      <p>Proven tips to maximize your ATS score</p>
+    </div>
+    <div class="tips-grid">
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">📝</div>
+        <h4>Use Standard Section Headers</h4>
+        <p>ATS systems look for exact keywords like "Work Experience", "Education", "Skills". Avoid creative names like "My Journey".</p>
+        <span class="tip-impact high">High Impact</span>
+      </div>
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">🎯</div>
+        <h4>Mirror Job Description Keywords</h4>
+        <p>Copy exact phrases from the job posting into your resume. ATS systems match verbatim keywords, not synonyms.</p>
+        <span class="tip-impact high">High Impact</span>
+      </div>
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">📊</div>
+        <h4>Quantify Achievements</h4>
+        <p>Use numbers everywhere: "Increased sales by 40%", "Managed team of 12 engineers", "Reduced costs by $50K".</p>
+        <span class="tip-impact high">High Impact</span>
+      </div>
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">🔤</div>
+        <h4>Use Action Verbs</h4>
+        <p>Start bullet points with strong verbs: Led, Developed, Implemented, Achieved, Optimized, Designed, Delivered.</p>
+        <span class="tip-impact medium">Medium Impact</span>
+      </div>
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">📋</div>
+        <h4>Choose Simple Formatting</h4>
+        <p>Avoid tables, text boxes, headers/footers, images, and multi-column layouts. ATS can't read complex formatting.</p>
+        <span class="tip-impact high">High Impact</span>
+      </div>
+      <div class="tip-card tilt-card">
+        <div class="tip-icon">📧</div>
+        <h4>Complete Contact Information</h4>
+        <p>Always include: name, phone, professional email, LinkedIn URL, and city/state (full address not required).</p>
+        <span class="tip-impact medium">Medium Impact</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <span class="logo-icon">⬡</span>
+        <span class="logo-text">ATS<span class="logo-accent">Pro</span></span>
+      </div>
+      <p class="footer-text">Your resume data never leaves your browser. 100% private & free.</p>
+      <p class="footer-copy">© 2026 ATSPro. Built for job seekers worldwide.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+  <script src="js/ats-engine.js"></script>
+  <script src="js/parser.js"></script>
+  <script src="js/jd-matcher.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
